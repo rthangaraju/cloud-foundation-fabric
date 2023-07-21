@@ -31,8 +31,8 @@ variable "configmanagement_clusters" {
 variable "configmanagement_templates" {
   description = "Sets of config management configurations that can be applied to member clusters, in config name => {options} format."
   type = map(object({
-    binauthz = bool
-    config_sync = object({
+    binauthz = optional(bool)
+    config_sync = optional(object({
       git = object({
         gcp_service_account_email = string
         https_proxy               = string
@@ -45,19 +45,19 @@ variable "configmanagement_templates" {
       })
       prevent_drift = string
       source_format = string
-    })
-    hierarchy_controller = object({
+    }))
+    hierarchy_controller = optional(object({
       enable_hierarchical_resource_quota = bool
       enable_pod_tree_labels             = bool
-    })
-    policy_controller = object({
+    }))
+    policy_controller = optional(object({
       audit_interval_seconds     = number
       exemptable_namespaces      = list(string)
       log_denies_enabled         = bool
       referential_rules_enabled  = bool
       template_library_installed = bool
-    })
-    version = string
+    }))
+    version = optional(string)
   }))
   default  = {}
   nullable = false

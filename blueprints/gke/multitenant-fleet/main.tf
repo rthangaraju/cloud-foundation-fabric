@@ -34,6 +34,7 @@ module "gke-project-0" {
       "anthos.googleapis.com",
       "anthosconfigmanagement.googleapis.com",
       "cloudresourcemanager.googleapis.com",
+      "connectgateway.googleapis.com",
       "container.googleapis.com",
       "dns.googleapis.com",
       "gkeconnect.googleapis.com",
