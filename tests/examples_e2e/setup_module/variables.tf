@@ -33,3 +33,9 @@ variable "suffix" {
 variable "timestamp" {
   type = string
 }
+variable "user_email" {
+  type = string
+}
+variable "group_email" {
+  type = string
+}

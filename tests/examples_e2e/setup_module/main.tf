@@ -26,6 +26,15 @@ locals {
     "stackdriver.googleapis.com",
     "storage-component.googleapis.com",
     "storage.googleapis.com",
+    "servicenetworking.googleapis.com",
+    "dns.googleapis.com",
+  ]
+  services-svc = [
+    # trimmed down list of services, to be extended as needed
+    "cloudresourcemanager.googleapis.com",
+    "compute.googleapis.com",
+    "iam.googleapis.com",
+    "serviceusage.googleapis.com",
   ]
 }
 
@@ -45,6 +54,34 @@ resource "google_project_service" "project_service" {
   for_each                   = toset(local.services)
   service                    = each.value
   project                    = google_project.project.project_id
+  disable_dependent_services = true
+}
+
+resource "google_project" "service_project_1" {
+  name            = "${local.prefix}-prj-1"
+  billing_account = var.billing_account
+  folder_id       = google_folder.folder.id
+  project_id      = "${local.prefix}-prj-1"
+}
+
+resource "google_project_service" "service_project_1_service" {
+  for_each                   = toset(local.services-svc)
+  service                    = each.value
+  project                    = google_project.service_project_1.project_id
+  disable_dependent_services = true
+}
+
+resource "google_project" "service_project_2" {
+  name            = "${local.prefix}-prj-2"
+  billing_account = var.billing_account
+  folder_id       = google_folder.folder.id
+  project_id      = "${local.prefix}-prj-2"
+}
+
+resource "google_project_service" "service_project_2_service" {
+  for_each                   = toset(local.services-svc)
+  service                    = each.value
+  project                    = google_project.service_project_2.project_id
   disable_dependent_services = true
 }
 
@@ -86,7 +123,11 @@ resource "local_file" "terraform_tfvars" {
     folder_id          = google_folder.folder.folder_id
     prefix             = local.prefix
     project_id         = google_project.project.project_id
+    service_project_1_project_id = google_project.service_project_1.project_id
+    service_project_2_project_id = google_project.service_project_2.project_id
     region             = var.region
+    group_email        = var.group_email
+    user_email         = var.user_email
     service_account = {
       id        = google_service_account.service_account.id
       email     = google_service_account.service_account.email

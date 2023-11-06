@@ -90,3 +90,19 @@ variable "vpc2" {
 variable "zone" {
   default = "zone"
 }
+
+variable "user_email" {
+  default = "user_email"
+}
+
+variable "group_email" {
+  default = "group_email"
+}
+
+variable "service_project_1_project_id" {
+  default = "service_project_1_project_id"
+}
+
+variable "service_project_2_project_id" {
+  default = "service_project_2_project_id"
+}
