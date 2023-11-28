@@ -123,8 +123,12 @@ resource "local_file" "terraform_tfvars" {
     folder_id          = google_folder.folder.folder_id
     prefix             = local.prefix
     project_id         = google_project.project.project_id
-    service_project_1_project_id = google_project.service_project_1.project_id
-    service_project_2_project_id = google_project.service_project_2.project_id
+    service_project_1 = {
+      project_id = google_project.service_project_1.project_id
+    }
+    service_project_2 = {
+      project_id = google_project.service_project_2.project_id
+    }
     region             = var.region
     group_email        = var.group_email
     user_email         = var.user_email

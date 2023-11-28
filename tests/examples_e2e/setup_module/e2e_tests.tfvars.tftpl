@@ -21,8 +21,12 @@ organization_id = "${organization_id}"
 folder_id = "${folder_id}"
 prefix = "${prefix}"
 project_id = "${project_id}"
-service_project_1_project_id = "${service_project_1_project_id}"
-service_project_2_project_id = "${service_project_2_project_id}"
+service_project_1 = {
+  project_id = "${service_project_1.project_id}"
+}
+service_project_2 = {
+  project_id = "${service_project_2.project_id}"
+}
 region = "${region}"
 service_account = {
     id        = "${service_account.id}"

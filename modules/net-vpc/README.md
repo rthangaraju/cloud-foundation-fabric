@@ -187,12 +187,12 @@ module "vpc-spoke-1" {
 ```hcl
 locals {
   service_project_1 = {
-    project_id                     = var.service_project_1_project_id
+    project_id                     = var.service_project_1.project_id
     gke_service_account            = "serviceAccount:${var.service_account.email}"
     cloud_services_service_account = "serviceAccount:${var.service_account.email}"
   }
   service_project_2 = {
-    project_id = var.service_project_2_project_id
+    project_id = var.service_project_2.project_id
   }
 }
 
